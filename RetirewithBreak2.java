@@ -17,19 +17,22 @@ public class RetirewithBreak2 {
         System.out.println("Hello!Welcome to check your retirement status!\n");
         //Scanner
         Scanner userInput = new Scanner(System.in);
-        int userAge = userInput.nextInt();
+        
         boolean continueLooping = true;
+        
         while (continueLooping) {
             System.out.println("Plase enter your age: \n");
+            int userAge = userInput.nextInt();
             if (userAge > 65.5) {
                 System.out.println("Wahho!You can retire!\n");
+                
             } else {
                 if (userAge < 0) {
-                    System.out.println("Sorry,you are too youg!Keep working!\n");
-                    
+                    System.out.println("Thanks for checking your retirement status\n");
+                    continueLooping = false;
                 }else{
                     System.out.println("Sorry,you are too youg!Keep working!\n");
-                    continueLooping = false;
+                    
                 }
             }
         
