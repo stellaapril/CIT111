@@ -49,22 +49,25 @@ public class miniProject3 {
     public static void userOrder(int ordericecream,int ordersmoothie,int ordertea){
         
         orderStrawicecream(ordericecream);
+        System.out.println("---------------------------------");
         orderVansmoothie(ordersmoothie);
+        System.out.println("---------------------------------");
         orderBubbletea(ordertea);
     }//close ordermethod
     
     public static void orderStrawicecream(int numOrder){
          if(ordericecream>0){
-             System.out.println("\n"+ordericecream + " Strawberry icecream!");
+             
              numStrawicecream= numStrawicecream + numOrder;
              totalSales = totalSales+ numOrder*PRICE_STRAWICECREAM;
-             System.out.println("Add a waffle? Y=1 N=2");
+             System.out.println("Add a waffle for icecream? Y=1 N=2");
              int addWaffle = userInput.nextInt( );
              if (addWaffle == 1){
              System.out.println("How many Waffle?");
              int orderWaffle = userInput.nextInt( );
              numWaffle = numWaffle + orderWaffle;
              totalSales = totalSales+numWaffle*PRICE_WAFFLE;
+             System.out.println("\n"+ordericecream + " Strawberry icecream  "+numWaffle+" Waffle");
              }//close inner if
          }//close if
     }//close orderStrawicecream
@@ -72,7 +75,7 @@ public class miniProject3 {
 
     public static void orderVansmoothie(int numOrder){
         if(ordersmoothie>0){
-            System.out.println("\n"+ordersmoothie + " Vanilla smoothie!");
+            System.out.println(ordersmoothie + " Vanilla smoothie!");
             numVansmoothie = numVansmoothie + numOrder;
             totalSales = totalSales + numOrder*PRICE_VANSMOOTHIE;
         }//close if
@@ -83,7 +86,7 @@ public class miniProject3 {
         if(ordertea>0){
             numBubbletea = numBubbletea + numOrder;
             totalSales = totalSales + numOrder*PRICE_BUBBLETEA;
-            System.out.println("\nGreen Tea or Black Tea? Green=1 Black=2");
+            System.out.println("Green Tea or Black Tea? Green=1 Black=2");
             int teaType = userInput.nextInt( );
             if(teaType==1){
                 System.out.println("\n"+ordertea+" Green tea Bubble Tea!");
