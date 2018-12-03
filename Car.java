@@ -15,7 +15,7 @@ public class Car {
     public String makeModel;
     
     //private variables
-    private boolean isEngineRunning = false;
+    private boolean isEngineRunning;
     private double speed;
     
     //method
