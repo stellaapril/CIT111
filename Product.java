@@ -50,8 +50,8 @@ public class Product {
         return productNum;
     }//close method
             
-    public boolean checkInstockornot(int amount){
-        if(amount >= 0){
+    public boolean checkInstockornot(){
+        if( amount >= 0){
             System.out.println("Product instock :)");
             isProductinstock = true;
         }else{
