@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CIT111Final;
+package finalproject1210;
 
+import java.util.Scanner;
 /**
  *
- * @author cst
+ * @author sitian.chen
  */
 public class Product {
     //public variables
@@ -15,37 +16,12 @@ public class Product {
     public String number;
     public String name;
     public String size;
+    public int amount;
     
     //private variables
     private boolean isProductinstock;
     private int productRemain;
     
-    
-    //method
-    public double getPrice(String number){
-        
-        return price;
-    }//close getPrice method
-    
-    public String choseProduct(String number){
-        
-        return name;
-    }//close mehtod
-    
-    public boolean checkInstockornot(){
-        if(productRemain >= 30){
-            System.out.println("Product instock :)");
-            isProductinstock = true;
-        }else{
-            System.out.println("Sorry,out of stock");
-            isProductinstock = false;
-        }//close if/else
-        return isProductinstock;
-    }//close method
-    
-    public int getRemainingproduct(){
-        return productRemain;
-    }//close method
     
     public static void displaymachie(){
         System.out.println("   _____________________________");
@@ -67,12 +43,69 @@ public class Product {
         
     }//close method
     
-    public static void displayprice(String productNum,String name,double price){
+    public static String input(){
+        System.out.println("Enter the number of item ");
+        Scanner userInput = new Scanner(System.in);
+        String productNum = userInput.next( );
+        return productNum;
+    }//close method
+            
+    public boolean checkInstockornot(int amount){
+        if(amount >= 0){
+            System.out.println("Product instock :)");
+            isProductinstock = true;
+        }else{
+            System.out.println("Sorry,out of stock");
+            isProductinstock = false;
+        }//close if/else
+        return isProductinstock;
+    }//close method
+    
+    
+    
+    public int getRemainingproduct(){
+        return productRemain;
+    }//close method
+    
+    
+    
+    public void displayprice(String productNum,String name,double price){
         System.out.println("******************************************");
-        System.out.println(productNum+" : "+name);
+        System.out.println(name);
         System.out.println("Total Price: "+price+" $");
-        System.out.println("You can use Credit Card or 5$/10$/20$ cash");
         System.out.println("******************************************");
     }//close method
+    
+    public double payment(){
+        System.out.println("Payment: Credit Card =1 Cash = 2");
+        Scanner keyboard = new Scanner(System.in);
+        int userPayment = keyboard.nextInt();
+        if (userPayment == 1){
+            System.out.println("Please insert your credit card");
+            System.out.println(".");
+            System.out.println(".");
+            System.out.println(".");
+            System.out.println("Please remove your card");
+            return 0;
+        }else{
+            System.out.println("Please insert 5$ / 10$ / 20$ (5$=5 / 10$=10 / 20$=20)");
+            int userCash = keyboard.nextInt();
+            return userCash;
+        }//close if/else
+    }//close method
+    
+    public double getChange(double cashamount, double price){
+        double change = cashamount - price;
+        return change;
+    }//close method
+    
+    public static void displayquarter(double change){
+        double quarterNum = change/0.25;
+        while(quarterNum>0){
+        System.out.println("O\b");
+        quarterNum = quarterNum-1;
+        }//close while
+    }//close method
+    
     
 }//close class
