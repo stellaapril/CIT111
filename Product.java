@@ -3,30 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CIT111Final3;
+package VendingMachine;
 
 import java.util.Scanner;
-
 /**
  *
- * @author cst
+ * @author sitian.chen
  */
 public class Product {
-    
-      //public variables
+    //public variables
     public double price;
     public String number;
     public String name;
     public String size;
     public int amount;
-    public String item;
+    
     
     //private variables
     private boolean isProductinstock;
     private boolean useCard;
-    private int productRemain;
+   
     
-    
+    //display vending machine diagram
     public static void displaymachie(){
         System.out.println("   _____________________________");
         System.out.println("  /                            /|");
@@ -49,6 +47,7 @@ public class Product {
         
     }//close method
     
+    //Detail of vending machine to show products and thier number
     public static void displayProductdetail(){
         System.out.println("                             ");
         System.out.println("_____________________________"); 
@@ -68,7 +67,8 @@ public class Product {
         
     }//close method
     
-    //check instock or not method       
+    //check instock or not method 
+    //when it's out of stock it can not do purchase      
     public boolean checkInstockornot(){
         if(amount > 0){
             isProductinstock = true;
@@ -78,7 +78,9 @@ public class Product {
         return isProductinstock;
     }//close method
     
+    
     //display product price method
+    //to show the price and size of the product
     public void displayprice(int amount,String name,double price,String size){
         System.out.println("                                          ");
         System.out.println("-------------------------------------------");
@@ -89,38 +91,38 @@ public class Product {
         System.out.println("-------------------------------------------");
         
     }//close method
-    double finalprice;
-    public void totalprice(int number, double price){
-       
-        finalprice = number*price;
-        System.out.println("Your total price is"+finalprice); 
-        
-        
-    }//close method
     
-    public double getfinalprice(){
-        return finalprice;
-    }
-    
-    
+    //get the number of item user will do purchase
     public int itemnum;
     public void itemNum(){
         System.out.println("How many items do you like to purchase?");
         Scanner userInput1 = new Scanner(System.in);
         itemnum = userInput1.nextInt();
-        System.out.println("\n-------------------------------------------");
+        
     }//close method
     
-    
     public int getNum(){
-        
         return itemnum;
     }//close method
     
+    //to calculate the final price
+    double finalprice;
+    public void totalprice(int number, double price){
+        finalprice = number*price;
+        System.out.println("\nYour total price is"+finalprice); 
+        System.out.println("\n-------------------------------------------");
+    }//close method
+    
+    public double getfinalprice(){
+        return finalprice;
+    }  
+    
+    
+    
+    
     //choose payment method
     public boolean payment(){
-        
-        
+        //choose credit or cash
         System.out.println("Payment:  Credit Card =1    Cash = 2");
         Scanner keyboard = new Scanner(System.in);
         int userPayment = keyboard.nextInt();
@@ -132,44 +134,59 @@ public class Product {
             System.out.println("Please remove your card");
             System.out.println("-------------------------------------------\n");
             System.out.println("Would you like to print your receipt? Y=1 N=2");
+            
+            //boolean of print receipt or not 
             int userreceipt = keyboard.nextInt();
             if(userreceipt == 1){
-                
+                //if user choose to print receipt, call the method of creditcard receipt
                 cardReceipt();
             }else{
+                //if user choose not to print the receipt
                 System.out.println("Thank you!");
             }//close inner if/else
+            //boolean to show user use creditcard to pay for it
             useCard = true;
+            
         }else{
+            //choose the cash user prepare to insert the vending machine
             System.out.println("Please insert 5$ / 10$ / 20$ \n"
                     + "(5$=5 / 10$=10 / 20$=20)");
             int userCash = keyboard.nextInt();
             System.out.println("-------------------------------------------\n");
+            //check if the cash user insert machine enough money to purchase
             if(userCash >= getfinalprice()){
                 System.out.println("Would you like to print your receipt? Y=1 N=2");
                 int userreceipt = keyboard.nextInt();
                 if(userreceipt ==1){
-                    
+                    //call the cashreceipt mehtod
                     cashReceipt(userCash,getChange(userCash, getfinalprice()));
-                 
+                    
+                //if user choose not to print the receipt 
                 }else{
+                    
                      System.out.println("Thank you!");
                     }//close inner if/else
+                
+                //get change
+                //dispaly the change and quarter user will get
                 displayquarter(getChange(userCash, price));
                 
+            //when user insert cash is not enough to purcahse    
             }else{
                 System.out.println("Sorry. Insert cash is not enough to purchase.");
                 System.out.println("-------------------------------------------\n");
             }
-            //get your change
-            
+            //boolean to show the user is not use creditcard to pay for it
             useCard = false;
         }//close if/else
         
         return useCard;
     }//close method
     
-    //change method
+    
+    
+    //change method 
+    //to calculate how many change will user get when they use cash to pay
     public double getChange(double cashamount, double finalprice){
         double change = cashamount - finalprice;
         
@@ -178,10 +195,12 @@ public class Product {
     
     
     //display quarter meethod
+    //to show how many quarters will user get and display how many quarters will give back to user
     public static void displayquarter(double change){
         double quarterNum = change/0.25;
         System.out.println("\n-------------------------------------------");
         System.out.println("Here are your change: "+ quarterNum +" quarters ");
+        
         while(quarterNum>0){
             System.out.print(" o ");
             quarterNum = quarterNum-1;
@@ -190,7 +209,8 @@ public class Product {
         System.out.println("                                       ");
     }//close method
     
-    //receipt method
+    //card receipt method 
+    //to show the method user use to pay and the date and the name of product and the price
     public void cardReceipt(){
         System.out.println("                                       ");
         System.out.println("                                       ");
@@ -209,6 +229,8 @@ public class Product {
         System.out.println("*******************************************");
     }//close mehtod
     
+    //cash receipt method 
+    //to show the method user use to pay and the date and the name of product and the price
     public void cashReceipt(double usercash,double totalChange ){
         System.out.println("                                       ");
         System.out.println("                                       ");
@@ -229,4 +251,4 @@ public class Product {
         System.out.println("*******************************************");
     }//close method
     
-}
+}//close class
