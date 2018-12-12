@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package finalproject1210;
-
+package CIT111Final2;
 import java.util.Scanner;
 /**
  *
- * @author sitian.chen
+ * @author cst
  */
 public class Product {
     //public variables
@@ -17,9 +16,11 @@ public class Product {
     public String name;
     public String size;
     public int amount;
+    public String item;
     
     //private variables
     private boolean isProductinstock;
+    private boolean useCard;
     private int productRemain;
     
     
@@ -28,6 +29,8 @@ public class Product {
         System.out.println("  /                            /|");
         System.out.println(" /                            / |");
         System.out.println("/____________________________/  |");
+        System.out.println("|     VENDING MACHINE       |   |");
+        System.out.println("|___________________________|   |");
         System.out.println("|  A01  |   A02  |  A03 |   |   |");
         System.out.println("|_______________________|   |   |");
         System.out.println("|  B01  |   B02  |  B03 |   |   |");
@@ -43,41 +46,52 @@ public class Product {
         
     }//close method
     
-    public static String input(){
-        System.out.println("Enter the number of item ");
-        Scanner userInput = new Scanner(System.in);
-        String productNum = userInput.next( );
-        return productNum;
+    public static void displayProductdetail(){
+        System.out.println("                             ");
+        System.out.println("_____________________________"); 
+        System.out.println("|  A01   |   A02   |  A03   |");
+        System.out.println("|Doritos |  Chip   |Popcorn |");
+        System.out.println("|________|_________|________|");
+        System.out.println("|  B01   |   B02   |  B03   |");
+        System.out.println("|  m&m   |  OREO   |  Nuts  |");
+        System.out.println("|________|_________|________|");
+        System.out.println("|  C01   |   C02   |  C03   |");
+        System.out.println("|  Coke  |Diet Coke| Sprite |");
+        System.out.println("|________|_________|________|");
+        System.out.println("|  D01   |   D02   |  D03   |");
+        System.out.println("|VitaZero| Dr.Peper|  Water |");
+        System.out.println("|________|_________|________|");
+        System.out.println("                             ");
+        
     }//close method
-            
+    
+    //check instock or not method       
     public boolean checkInstockornot(){
-        if( amount >= 0){
-            System.out.println("Product instock :)");
+        if(amount > 0){
             isProductinstock = true;
         }else{
-            System.out.println("Sorry,out of stock");
             isProductinstock = false;
         }//close if/else
         return isProductinstock;
     }//close method
     
-    
-    
-    public int getRemainingproduct(){
-        return productRemain;
-    }//close method
-    
-    
-    
-    public void displayprice(String productNum,String name,double price){
-        System.out.println("******************************************");
+    //display product price method
+    public void displayprice(int amount,String name,double price,String size){
+        System.out.println("                                          ");
+        System.out.println("-------------------------------------------");
         System.out.println(name);
-        System.out.println("Total Price: "+price+" $");
-        System.out.println("******************************************");
+        System.out.println("Size:"+ size);
+        System.out.println("Total Price: "+price+"$");
+        System.out.println("Instock: "+ amount);
+        System.out.println("-------------------------------------------");
+        
     }//close method
     
-    public double payment(){
-        System.out.println("Payment: Credit Card =1 Cash = 2");
+    //choose payment method
+    public boolean payment(){
+        
+        System.out.println("-------------------------------------------");
+        System.out.println("Payment:  Credit Card =1    Cash = 2");
         Scanner keyboard = new Scanner(System.in);
         int userPayment = keyboard.nextInt();
         if (userPayment == 1){
@@ -86,25 +100,94 @@ public class Product {
             System.out.println(".");
             System.out.println(".");
             System.out.println("Please remove your card");
-            return 0;
+            System.out.println("-------------------------------------------\n");
+            System.out.println("Would you like to print your receipt? Y=1 N=2");
+            int userreceipt = keyboard.nextInt();
+            if(userreceipt == 1){
+                cardReceipt();
+            }else{
+                System.out.println("Thank you!");
+            }//close inner if/else
+            useCard = true;
         }else{
-            System.out.println("Please insert 5$ / 10$ / 20$ (5$=5 / 10$=10 / 20$=20)");
+            System.out.println("Please insert 5$ / 10$ / 20$ \n"
+                    + "(5$=5 / 10$=10 / 20$=20)");
             int userCash = keyboard.nextInt();
-            return userCash;
+            System.out.println("-------------------------------------------\n");
+            //get your change
+            System.out.println("Would you like to print your receipt? Y=1 N=2");
+            int userreceipt = keyboard.nextInt();
+            if(userreceipt ==1){
+                 cashReceipt(userCash,getChange(userCash, price));
+                 
+            }else{
+                System.out.println("Thank you!");
+            }//close inner if/else
+            displayquarter(getChange(userCash, price));
+            useCard = false;
         }//close if/else
+        
+        return useCard;
     }//close method
     
+    //change method
     public double getChange(double cashamount, double price){
         double change = cashamount - price;
+        
         return change;
     }//close method
     
+    
+    //display quarter meethod
     public static void displayquarter(double change){
         double quarterNum = change/0.25;
+        System.out.println("\n-------------------------------------------");
+        System.out.println("Here are your change: "+ quarterNum +" quarters ");
         while(quarterNum>0){
-        System.out.println("O\b");
-        quarterNum = quarterNum-1;
+            System.out.print(" o ");
+            quarterNum = quarterNum-1;
         }//close while
+        System.out.println("\n-------------------------------------------");
+        System.out.println("                                       ");
+    }//close method
+    
+    //receipt method
+    public void cardReceipt(){
+        System.out.println("                                       ");
+        System.out.println("                                       ");
+        System.out.println("******************RECEIPT******************");
+        System.out.println("PAYMENT: CARD# ************0414");
+        System.out.println("                                           ");
+        System.out.println("                                           ");
+        System.out.println("DATE:                             12/12/2018");
+        System.out.println(name+"@1    "+price+"$");
+        System.out.println("TOTAL:    "+price+"$");
+        System.out.println("                                           ");
+        System.out.println("                                           ");
+        System.out.println("                                           ");
+        System.out.println("                                           ");
+        System.out.println("               Customer Copy               ");
+        System.out.println("*******************************************");
+    }//close mehtod
+    
+    public void cashReceipt(double usercash,double totalChange ){
+        System.out.println("                                       ");
+        System.out.println("                                       ");
+        System.out.println("******************RECEIPT******************");
+        System.out.println("DATE:                             12/12/2018");
+        System.out.println("PAYMENT: CASH");
+        System.out.println("                                           ");
+        System.out.println("                                           ");
+        System.out.println(name +"@1    "+price+"$");
+        System.out.println("TOTAL:     "+price+"$");
+        System.out.println("PAY:       "+usercash+"$");
+        System.out.println("CHANGE:    "+totalChange+"$");
+        System.out.println("                                           ");
+        System.out.println("                                           ");
+        System.out.println("                                           ");
+        System.out.println("                                           ");
+        System.out.println("               Customer Copy               ");
+        System.out.println("*******************************************");
     }//close method
     
     
