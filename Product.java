@@ -3,14 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CIT111Final2;
+package CIT111Final3;
+
 import java.util.Scanner;
+
 /**
  *
  * @author cst
  */
 public class Product {
-    //public variables
+    
+      //public variables
     public double price;
     public String number;
     public String name;
@@ -86,11 +89,38 @@ public class Product {
         System.out.println("-------------------------------------------");
         
     }//close method
+    double finalprice;
+    public void totalprice(int number, double price){
+       
+        finalprice = number*price;
+        System.out.println("Your total price is"+finalprice); 
+        
+        
+    }//close method
+    
+    public double getfinalprice(){
+        return finalprice;
+    }
+    
+    
+    public int itemnum;
+    public void itemNum(){
+        System.out.println("How many items do you like to purchase?");
+        Scanner userInput1 = new Scanner(System.in);
+        itemnum = userInput1.nextInt();
+        System.out.println("\n-------------------------------------------");
+    }//close method
+    
+    
+    public int getNum(){
+        
+        return itemnum;
+    }//close method
     
     //choose payment method
     public boolean payment(){
         
-        System.out.println("-------------------------------------------");
+        
         System.out.println("Payment:  Credit Card =1    Cash = 2");
         Scanner keyboard = new Scanner(System.in);
         int userPayment = keyboard.nextInt();
@@ -104,6 +134,7 @@ public class Product {
             System.out.println("Would you like to print your receipt? Y=1 N=2");
             int userreceipt = keyboard.nextInt();
             if(userreceipt == 1){
+                
                 cardReceipt();
             }else{
                 System.out.println("Thank you!");
@@ -114,16 +145,24 @@ public class Product {
                     + "(5$=5 / 10$=10 / 20$=20)");
             int userCash = keyboard.nextInt();
             System.out.println("-------------------------------------------\n");
-            //get your change
-            System.out.println("Would you like to print your receipt? Y=1 N=2");
-            int userreceipt = keyboard.nextInt();
-            if(userreceipt ==1){
-                 cashReceipt(userCash,getChange(userCash, price));
+            if(userCash >= getfinalprice()){
+                System.out.println("Would you like to print your receipt? Y=1 N=2");
+                int userreceipt = keyboard.nextInt();
+                if(userreceipt ==1){
+                    
+                    cashReceipt(userCash,getChange(userCash, getfinalprice()));
                  
+                }else{
+                     System.out.println("Thank you!");
+                    }//close inner if/else
+                displayquarter(getChange(userCash, price));
+                
             }else{
-                System.out.println("Thank you!");
-            }//close inner if/else
-            displayquarter(getChange(userCash, price));
+                System.out.println("Sorry. Insert cash is not enough to purchase.");
+                System.out.println("-------------------------------------------\n");
+            }
+            //get your change
+            
             useCard = false;
         }//close if/else
         
@@ -131,8 +170,8 @@ public class Product {
     }//close method
     
     //change method
-    public double getChange(double cashamount, double price){
-        double change = cashamount - price;
+    public double getChange(double cashamount, double finalprice){
+        double change = cashamount - finalprice;
         
         return change;
     }//close method
@@ -160,8 +199,8 @@ public class Product {
         System.out.println("                                           ");
         System.out.println("                                           ");
         System.out.println("DATE:                             12/12/2018");
-        System.out.println(name+"@1    "+price+"$");
-        System.out.println("TOTAL:    "+price+"$");
+        System.out.println(name+"    @"+getNum()+"    "+price+"$");
+        System.out.println("TOTAL:    "+finalprice+"$");
         System.out.println("                                           ");
         System.out.println("                                           ");
         System.out.println("                                           ");
@@ -178,8 +217,8 @@ public class Product {
         System.out.println("PAYMENT: CASH");
         System.out.println("                                           ");
         System.out.println("                                           ");
-        System.out.println(name +"@1    "+price+"$");
-        System.out.println("TOTAL:     "+price+"$");
+        System.out.println(name +"@"+getNum()+"   "+price+"$");
+        System.out.println("TOTAL:     "+finalprice+"$");
         System.out.println("PAY:       "+usercash+"$");
         System.out.println("CHANGE:    "+totalChange+"$");
         System.out.println("                                           ");
@@ -190,5 +229,4 @@ public class Product {
         System.out.println("*******************************************");
     }//close method
     
-    
-}//close class
+}

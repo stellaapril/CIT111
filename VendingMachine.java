@@ -3,15 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CIT111Final2;
+package CIT111Final3;
+
 import java.util.HashMap;
 import java.util.Scanner;
+
 /**
  *
  * @author cst
  */
 public class VendingMachine {
-      public static void main(String[] args){
+    public static void main(String[] args){
         Product doricheese = new Product();
         doricheese.name = "Doritos Cheese";
         doricheese.price = 1.75;
@@ -146,15 +148,26 @@ public class VendingMachine {
                
                    //display price
                    retrivedproductX.displayprice(retrivedproductX.amount,retrivedproductX.name,retrivedproductX.price,retrivedproductX.size);
-                   System.out.println("Check out = 1 / Back to main manue = 2");
-                   int userChoice = userInput.nextInt();
-                   if(userChoice == 1){
-                       //choose payment
-                   retrivedproductX.payment();
-                   retrivedproductX.amount = retrivedproductX.amount - 1;
-                   }//close inner if
+                   
+                   retrivedproductX.itemNum();
+                   int itemnum;
+                   itemnum = retrivedproductX.getNum();
+                   if(itemnum<=retrivedproductX.amount){
+                        System.out.println("Check out = 1 / Back to main manue = 2");
+                        int userChoice = userInput.nextInt();
+                        System.out.println("\n-------------------------------------------");
+                        if(userChoice == 1){
+                        //choose payment
+                        retrivedproductX.totalprice(itemnum,retrivedproductX.price);
+                        retrivedproductX.payment();
+                        retrivedproductX.amount = retrivedproductX.amount - itemnum;
+                        }//close inner if
                
                    //product amount
+                   }else{
+                       System.out.println("Sorry,only have  "+retrivedproductX.amount+" "+retrivedproductX.name+"s");
+                   }//close if/else
+                  
                    
                
                 }else{
@@ -169,4 +182,4 @@ public class VendingMachine {
         }//close while
     }//close main
     
-}//close class
+}
