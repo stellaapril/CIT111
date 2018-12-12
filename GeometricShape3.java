@@ -30,7 +30,7 @@ public class GeometricShape3 {
         double userHeight = userInput.nextDouble();
         
         System.out.println("The volume of a cylinder with radius: "+userRadius+
-                "\nand height of "+userHeight+" is "+calcVolumeOfCube(double userRadius,double userHeight));
+                "\nand height of "+userHeight+" is "+calcVolumnOfCylinder(userRadius,userHeight));
         
         
         
