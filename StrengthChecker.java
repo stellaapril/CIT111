@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Passwordstrengthmachine;
+package week1password;
 
 /**
  *
@@ -11,18 +11,17 @@ package Passwordstrengthmachine;
  */
 public class StrengthChecker {
     
-    public void SetRequiredChara(String[] r){
+     public void setRequiredLength(int min, int max){
+        //code my guts
+    }//close method
+    
+    public void setReqChars(String[] reqChars){
         
     }//close method
     
-    //stelength method
-    public void Setlength(int min, int max){
-        
-    }//close method
-    
-    //checkpassword method
-    public void CheckPassword(String p){
-        
+    public boolean checkPassword(String psswd){
+        //check that password meets length
+        return false;
     }//close method
     
 }
